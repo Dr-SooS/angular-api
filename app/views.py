@@ -4,6 +4,7 @@ import string
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from django.http import QueryDict
 from django.http.response import HttpResponse, JsonResponse
 from django.template.context_processors import csrf
 from django.utils.decorators import method_decorator
@@ -85,7 +86,6 @@ class TaskApi(View):
         return super(TaskApi, self).dispatch(request, *args, **kwargs)
 
     def get(self, request):
-        user = UserSession.objects.get(pk=request.GET['session']).user
         task = Task.objects.get(pk=request.GET['task_id'])
         return JsonResponse({'Task': {'id': task.id, 'title': task.title, 'description': task.description}})
 
@@ -99,7 +99,6 @@ class TaskApi(View):
 
     def put(self, request):
         body = json.loads(request.body.decode('utf-8'))
-        user = UserSession.objects.get(pk=body['session']).user
         task = Task.objects.get(pk=body['Task']['id'])
         task.title = body['Task']['title']
         task.description = body['Task']['description']
@@ -108,6 +107,5 @@ class TaskApi(View):
 
     def delete(self, request):
         body = json.loads(request.body.decode('utf-8'))
-        user = UserSession.objects.get(pk=body['session']).user
         Task.objects.get(pk=body['task_id']).delete()
         return HttpResponse(status=200)
