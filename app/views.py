@@ -74,9 +74,11 @@ class ProjectApi(View):
         return JsonResponse({'Project': {'id': project.id, 'title': project.title, 'task_count': project.tasks.count()}})
 
     def delete(self, request):
-        body = json.loads(request.body.decode('utf-8'))
-        user = UserSession.objects.get(pk=body['session']).user
-        user.projects.get(pk=body['project_id']).delete()
+        # body = json.loads(request.body.decode('utf-8'))
+        # user = UserSession.objects.get(pk=body['session']).user
+        # user.projects.get(pk=body['project_id']).delete()
+        user = UserSession.objects.get(pk=request.GET['session']).user
+        user.projects.get(pk=request.GET['project_id']).delete()
         return HttpResponse(status=200)
 
 
@@ -106,6 +108,7 @@ class TaskApi(View):
         return JsonResponse({'Task': {'id': task.id, 'title': task.title, 'description': task.description}})
 
     def delete(self, request):
-        body = json.loads(request.body.decode('utf-8'))
-        Task.objects.get(pk=body['task_id']).delete()
+        # body = json.loads(request.body.decode('utf-8'))
+        # Task.objects.get(pk=body['task_id']).delete()
+        Task.objects.get(pk=request.GET['task_id']).delete()
         return HttpResponse(status=200)

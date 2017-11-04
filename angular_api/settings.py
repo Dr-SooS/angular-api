@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'angular_api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -95,7 +95,7 @@ DATABASES = {
         'HOST': 'cheephs.mysql.pythonanywhere-services.com',
     }
 }
-
+'''
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
